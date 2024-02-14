@@ -3,7 +3,6 @@ package com.app.bank_misr.data.di
 import android.content.Context
 import com.app.bank_misr.BuildConfig
 import com.app.bank_misr.data.app.App
-import com.app.bank_misr.data.local_storage.prefs.PrefStore
 import com.app.bank_misr.data.network.ApiService
 import com.app.bank_misr.data.util.cast
 import dagger.Module
@@ -11,8 +10,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.BODY
 import retrofit2.Retrofit
@@ -43,7 +44,14 @@ object RetrofitModule {
     .connectTimeout(1, TimeUnit.MINUTES)
     .readTimeout(1, TimeUnit.MINUTES)
     .addInterceptor(Interceptor {
+      val original: Request = it.request()
+      val originalHttpUrl: HttpUrl = original.url
+      val url = originalHttpUrl.newBuilder()
+        .addQueryParameter("access_key", BuildConfig.API_TOKEN)
+        .build()
+
       val request = it.request().newBuilder()
+        .url(url)
         .header("Content-Type", "application/json")
         .header("Platform", "android")
         .build()
