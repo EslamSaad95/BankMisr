@@ -1,0 +1,37 @@
+<resources>
+
+  <!-- region ExceptionActivity -->
+  <string name="app_name">bank_misr Task</string>
+  <string name="exception_msg">حدث خطأ غير متوقع.\nعذراً للإزعاج</string>
+  <string name="exception_restart">إعادة تشغيل التطبيق</string>
+  <string name="permission_denied">تم رفض الصلاحية</string>
+  <string name="error_retry">أغد المحاولة</string>
+  <!-- endregion -->
+
+  <!-- region NetworkErrors -->
+  <string name="network_invalid_input">تم إدخال قيم غير صحيحة.</string>
+  <string name="network_unauthorized">عفواً لقد إنتهي الوقت المحدد للجلسة، الرجاء إعادة تسجيل الدخول.</string>
+  <string name="network_forbidden">ليس لديك الصلاحيات اللازمة.</string>
+  <string name="network_not_found">لم يتم العثور على المورد المطلوب.</string>
+  <string name="network_server_error">الخدمة غير متوفرة الآن، يرجى المحاولة مرة أخرى لاحقاً.</string>
+  <string name="network_connection_error">لا يوجد اتصال بالإنترنت، يرجي التحقق من اتصال الإنترنت والمحاولة مرة أخرى.</string>
+  <string name="network_unexpected_response">عذراَ، إستجابة غير متوقعة من الخادم.</string>
+  <string name="network_unknown_error">حدث خطأ غير معروف، يرجى المحاولة مرة أخرى.</string>
+  <!-- endregion -->
+
+  <!--region Alert-->
+  <string name="alert_ok">حسنآ</string>
+  <!--endregion-->
+
+  <!--region login-->
+  <string name="user_name">اسم المستخدم</string>
+  <string name="password">كلمة السر</string>
+  <string name="login">تسجيل الدخول</string>
+  <!--endregion-->
+
+  <!--region Validations-->
+  <string name="validations_user_name_empty">يرجى إدخال اسم المستخدم</string>
+  <string name="validations_password_empty">يرجى إدخال كلمة المرور</string>
+  <!--endregion-->
+
+</resources>
