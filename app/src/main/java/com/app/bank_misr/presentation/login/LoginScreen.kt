@@ -20,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.bank_misr.data.util.cast
-import com.app.bank_misr.domain.common.DataState
 import com.app.bank_misr.presentation.common.view.ButtonFilled
 import com.app.bank_misr.presentation.common.view.ErrorAlert
 import com.app.bank_misr.presentation.common.view.LoadingDialog

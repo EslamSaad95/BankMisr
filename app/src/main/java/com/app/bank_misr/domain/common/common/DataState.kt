@@ -1,6 +1,6 @@
-package com.app.bank_misr.domain.common
+package com.app.bank_misr.domain.common.common
 
-import com.app.bank_misr.presentation.common.UiText
+import com.app.twerlo.presentation.common.UiText
 
 sealed class DataState() {
 

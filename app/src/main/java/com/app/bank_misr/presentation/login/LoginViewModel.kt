@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.bank_misr.data.local_storage.prefs.PrefStore
 import com.app.bank_misr.presentation.common.UiText
-import com.app.bank_misr.domain.common.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

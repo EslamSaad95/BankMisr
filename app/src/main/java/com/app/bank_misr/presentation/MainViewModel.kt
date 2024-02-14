@@ -1,8 +1,6 @@
 package com.app.bank_misr.presentation
 
 import androidx.lifecycle.ViewModel
-import com.app.bank_misr.domain.common.DataState
-import com.app.bank_misr.domain.common.DataState.Idle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
