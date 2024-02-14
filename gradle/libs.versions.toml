@@ -1,5 +1,5 @@
 [versions]
-applicationId = "com.app.twerlo"
+applicationId = "com.app.bank_misr"
 buildToolsVersion = "34.0.0"
 coilCompose = "2.3.0"
 compose-compiler = "1.5.2"

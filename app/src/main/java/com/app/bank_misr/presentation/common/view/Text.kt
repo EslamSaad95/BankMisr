@@ -10,10 +10,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -22,6 +26,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
@@ -34,6 +44,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
+import com.app.bank_misr.domain.entity.CurrencySymbolEntity
 import com.app.bank_misr.presentation.theme.AntiFlashWhite
 import com.app.bank_misr.presentation.theme.Black
 import com.app.bank_misr.presentation.theme.Gray80
@@ -304,7 +315,128 @@ fun DropDownInputTextField(
     )
   )
 }
+@Composable
+fun CurrencySymbolOutlineDropDown(
+  modifier: Modifier = Modifier,
+  value: String,
+  @StringRes placeholder: Int,
+  errorMessage: String,
+  onValueChange: (String) -> Unit,
+  symbols: List<CurrencySymbolEntity>,
+  onCurrencySelected: (CurrencySymbolEntity) -> Unit,
+  isError: Boolean = false
+) {
+
+  var expanded by remember { mutableStateOf(false) }
+  var selectedIndex by remember { mutableIntStateOf(0) }
+
+  Box(
+    modifier = Modifier.wrapContentSize()
+  ) {
+
+    DropDownOutLineTextInput(modifier = modifier, value = value, placeholder = placeholder,
+      errorMessage = errorMessage,
+      isError = isError,
+      onValueChange = onValueChange, onClick = {
+        expanded = true
+      })
+
+    Icon(
+      painter = painterResource(id = com.app.maqsaf.R.drawable.ic_arrow_down),
+      tint = Color.Unspecified,
+      contentDescription = null,
+      modifier = Modifier
+        .align(alignment = Alignment.TopEnd)
+        .padding(top = dimensionResource(id = R.dimen._15sdp))
+        .padding(horizontal = dimensionResource(id = R.dimen._12sdp))
+    )
+
+    DropdownMenu(
+      expanded = expanded,
+      onDismissRequest = { expanded = false }
+    ) {
+      schools.forEachIndexed { index, school ->
+        DropdownMenuItem(
+          text = {
+            Text(
+              text = school.name,
+              style = normalTextStyle()
+            )
+          },
+          onClick = {
+            selectedIndex = index
+            onSchoolChange.invoke(school)
+            expanded = false
+          })
+
+        if (index < schools.lastIndex) Divider()
+      }
+    }
+
+  }
+}
 
 
 
 
+@Composable
+fun DropDownOutLineTextInput(
+  value: String,
+  @StringRes placeholder: Int,
+  errorMessage: String,
+  onValueChange: (String) -> Unit,
+  modifier: Modifier = Modifier,
+  maxLength: Int = Int.MAX_VALUE,
+  keyboardType: KeyboardType = KeyboardType.Text,
+  colors: TextFieldColors = textFieldColors(),
+  imeAction: ImeAction = ImeAction.Default,
+  icon: Int = 0,
+  isError: Boolean = false,
+  disableFontValue: Boolean = false,
+  onClick: () -> Unit,
+) {
+
+  OutLineTextInput(
+    modifier = modifier.clickable { onClick.invoke() },
+    shape = RoundedCornerShape(dimensionResource(id = R.dimen._6sdp)),
+    singleLine = true,
+    readOnly = true,
+    isError = isError,
+    enabled = false,
+    value = value,
+    onValueChange = {
+      if (it.length <= maxLength) onValueChange.invoke(it)
+    },
+    placeholder = {
+      Text(
+        text = stringResource(id = placeholder),
+        style = placeholderStyle()
+      )
+    },
+    supportingText = {
+      if (errorMessage.isNotEmpty()) {
+        Text(
+          text = errorMessage,
+          color = MaterialTheme.colorScheme.error,
+          fontFamily = ge_ss,
+        )
+      }
+    },
+    keyboardOptions = KeyboardOptions(
+      keyboardType = keyboardType,
+      imeAction = imeAction
+    ),
+    colors = colors,
+
+    leadingIcon = {
+      if (icon != 0)
+        Icon(
+          painter = painterResource(id = icon),
+          tint = Color.Unspecified,
+          contentDescription = null,
+        )
+
+    },
+    textStyle = textFieldStyle(disableFontValue),
+  )
+}

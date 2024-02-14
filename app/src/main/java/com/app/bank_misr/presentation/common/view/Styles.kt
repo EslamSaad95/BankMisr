@@ -1,27 +1,18 @@
 package com.app.bank_misr.presentation.common.view
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
-import com.app.bank_misr.presentation.theme.CelestialBlue
 import com.app.bank_misr.presentation.theme.SeaSalt
 import com.app.bank_misr.presentation.theme.Silver
-import com.intuit.ssp.R.dimen._10ssp
 import com.intuit.ssp.R.dimen._12ssp
 import com.intuit.ssp.R.dimen._13ssp
-import com.intuit.ssp.R.dimen._9ssp
 
 /**
  * Ahmed Elmokadim

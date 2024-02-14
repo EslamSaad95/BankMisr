@@ -1,8 +1,7 @@
 package com.app.bank_misr.presentation.common
 
-import com.app.twerlo.R
+import com.app.bank_misr.R
 import com.app.bank_misr.domain.common.ErrorState
-import com.app.twerlo.presentation.common.UiText
 
 fun ErrorState.toUiText(): UiText
 {

@@ -27,11 +27,7 @@ import com.app.bank_misr.presentation.theme.AppTheme
 import com.app.bank_misr.presentation.theme.Black
 import kotlinx.coroutines.delay
 
-/**
- * Ahmed Elmokadim
- * elmokadim@gmail.com
- * 15/07/2023
- */
+
 @Composable
 fun Alert(
   title: String? = stringResource(id = R.string.app_name),
@@ -40,8 +36,7 @@ fun Alert(
   cancelText: String? = null,
   onConfirm: () -> Unit = {},
   onDismiss: () -> Unit = {},
-  closeAutomatic: Boolean = false,
-  disabledFontValue: Boolean = false
+  closeAutomatic: Boolean = false
 ) {
 
   val openDialog = remember { mutableStateOf(true) }

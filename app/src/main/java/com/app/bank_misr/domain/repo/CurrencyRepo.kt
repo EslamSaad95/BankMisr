@@ -4,7 +4,7 @@ import com.app.bank_misr.domain.common.ApiResult
 import com.app.bank_misr.domain.common.ErrorState
 import com.app.bank_misr.domain.entity.CurrencySymbolEntity
 
-interface Currencies {
+interface CurrencyRepo {
 
   suspend fun getCurrencies(): ApiResult<List<CurrencySymbolEntity>, ErrorState>
 }

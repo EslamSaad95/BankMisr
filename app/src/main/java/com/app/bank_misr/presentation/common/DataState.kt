@@ -1,7 +1,5 @@
 package com.app.bank_misr.presentation.common
 
-import com.app.twerlo.presentation.common.UiText
-
 sealed class DataState() {
 
   data object Idle : DataState()
