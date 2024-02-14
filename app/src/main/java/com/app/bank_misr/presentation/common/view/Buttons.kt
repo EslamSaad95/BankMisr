@@ -1,4 +1,4 @@
-package com.app.bank_misr.presentation.common
+package com.app.bank_misr.presentation.common.view
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth

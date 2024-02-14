@@ -1,4 +1,4 @@
-package com.app.bank_misr.presentation.common
+package com.app.bank_misr.presentation.common.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

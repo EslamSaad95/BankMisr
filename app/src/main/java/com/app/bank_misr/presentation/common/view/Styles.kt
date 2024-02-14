@@ -1,4 +1,4 @@
-package com.app.bank_misr.presentation.common
+package com.app.bank_misr.presentation.common.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

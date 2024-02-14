@@ -21,11 +21,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.bank_misr.data.util.cast
 import com.app.bank_misr.domain.common.DataState
-import com.app.bank_misr.presentation.common.ButtonFilled
-import com.app.bank_misr.presentation.common.ErrorAlert
-import com.app.bank_misr.presentation.common.LoadingDialog
-import com.app.bank_misr.presentation.common.OutLineTextInput
-import com.app.bank_misr.presentation.common.OutlinePasswordTextField
+import com.app.bank_misr.presentation.common.view.ButtonFilled
+import com.app.bank_misr.presentation.common.view.ErrorAlert
+import com.app.bank_misr.presentation.common.view.LoadingDialog
+import com.app.bank_misr.presentation.common.view.OutLineTextInput
+import com.app.bank_misr.presentation.common.view.OutlinePasswordTextField
 import com.app.bank_misr.presentation.common.UiText
 import com.app.bank_misr.presentation.destinations.MainScreenDestination
 import com.intuit.sdp.R

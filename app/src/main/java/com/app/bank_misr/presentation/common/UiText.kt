@@ -1,4 +1,4 @@
-package com.app.bank_misr.presentation.common
+package com.app.twerlo.presentation.common
 
 import android.content.Context
 import androidx.annotation.StringRes
