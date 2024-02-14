@@ -5,11 +5,10 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-fun Throwable.mapToFailureType():FailureType
-{
+fun Throwable.mapToFailureType(): FailureType {
   when (this) {
     is HttpException -> {
-      return when(this.code()) {
+      return when (this.code()) {
         400 -> FailureType.InvalidInput
         401 -> FailureType.UnAuthorizedAccess
         403 -> FailureType.Forbidden
@@ -18,7 +17,8 @@ fun Throwable.mapToFailureType():FailureType
         else -> FailureType.ConnectionError
       }
     }
-    is SocketTimeoutException,is IOException -> return FailureType.ConnectionError
+
+    is SocketTimeoutException, is IOException -> return FailureType.ConnectionError
 
   }
   return FailureType.UnKnownError
