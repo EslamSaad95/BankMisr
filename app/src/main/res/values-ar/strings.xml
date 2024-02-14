@@ -23,6 +23,7 @@
   <string name="alert_ok">حسنآ</string>
   <!--endregion-->
 
-
+  <string name="from_currency">من </string>
+  <string name="to_currency">إلى </string>
 
 </resources>

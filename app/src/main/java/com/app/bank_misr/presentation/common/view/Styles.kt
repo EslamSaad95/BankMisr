@@ -11,6 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.app.bank_misr.presentation.theme.SeaSalt
 import com.app.bank_misr.presentation.theme.Silver
+import com.intuit.ssp.R.dimen._10ssp
 import com.intuit.ssp.R.dimen._12ssp
 import com.intuit.ssp.R.dimen._13ssp
 
@@ -69,8 +70,8 @@ fun disabledFieldColors() = TextFieldDefaults.colors(
 @Composable
 fun textFieldStyle() = TextStyle(
   color = Color.Black,
-  fontSize = dimensionResource(id = _12ssp).value.sp,
-  fontWeight = FontWeight.W500,
+  fontSize = dimensionResource(id = _10ssp).value.sp,
+  fontWeight = FontWeight.W400,
   textAlign = TextAlign.Start
 )
 

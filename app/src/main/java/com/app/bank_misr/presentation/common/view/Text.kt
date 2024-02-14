@@ -239,91 +239,16 @@ fun InputTextField(
   )
 }
 
+
 @Composable
-fun DropDownInputTextField(
-  value: String,
-  @StringRes title: Int,
-  @StringRes placeholder: Int,
-  errorMessage: String,
-  onValueChange: (String) -> Unit,
-  keyboardType: KeyboardType = KeyboardType.Text,
-  imeAction: ImeAction = ImeAction.Default,
-  onClick: () -> Unit,
-
-  ) {
-  BasicTextField(
-    modifier = Modifier
-      .fillMaxWidth(1f)
-      .background(color = Color.White)
-      .padding(
-        vertical = dimensionResource(id = _3sdp),
-        horizontal = dimensionResource(id = com.intuit.sdp.R.dimen._6sdp)
-      )
-      .horizontalScroll(rememberScrollState())
-      .clickable {
-        onClick.invoke()
-      },
-    value = value,
-    onValueChange = {
-      onValueChange.invoke(it)
-    },
-    singleLine = true,
-    readOnly = true,
-    enabled = false,
-    decorationBox = { innerTextField ->
-      Column {
-        Text(
-          text = stringResource(id = title),
-          style = TextStyle(
-            color = Gray80,
-            fontWeight = FontWeight.W400,
-            fontSize = dimensionResource(id = _11ssp).value.sp
-          )
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(id = _2sdp)))
-
-        Box {
-          if (value.isEmpty()) Text(
-            text = stringResource(id = placeholder),
-            style = TextStyle(
-              color = AntiFlashWhite,
-              fontWeight = FontWeight.W400,
-              fontSize = dimensionResource(id = _11ssp).value.sp
-            )
-          )
-          innerTextField()
-        }
-
-        Text(
-          text = errorMessage,
-          style = TextStyle(
-            color = Madder,
-            fontWeight = FontWeight.Thin,
-            fontSize = dimensionResource(id = _8ssp).value.sp
-          )
-        )
-      }
-    },
-    textStyle = TextStyle(
-      color = Black,
-      fontWeight = FontWeight.W500,
-      fontSize = dimensionResource(id = _12ssp).value.sp
-    ),
-    keyboardOptions = KeyboardOptions(
-      keyboardType = keyboardType,
-      imeAction = imeAction
-    )
-  )
-}
-@Composable
-fun CurrencySymbolOutlineDropDown(
+fun CurrencySymbolsOutlineDropDown(
   modifier: Modifier = Modifier,
   value: String,
   @StringRes placeholder: Int,
   errorMessage: String,
   onValueChange: (String) -> Unit,
-  symbols: List<CurrencySymbolEntity>,
-  onCurrencySelected: (CurrencySymbolEntity) -> Unit,
+  currencySymbol: List<CurrencySymbolEntity>,
+  onCurrencyChanged: (CurrencySymbolEntity) -> Unit,
   isError: Boolean = false
 ) {
 
@@ -342,43 +267,39 @@ fun CurrencySymbolOutlineDropDown(
       })
 
     Icon(
-      painter = painterResource(id = com.app.maqsaf.R.drawable.ic_arrow_down),
+      painter = painterResource(id = com.app.bank_misr.R.drawable.ic_arrow_down),
       tint = Color.Unspecified,
       contentDescription = null,
       modifier = Modifier
         .align(alignment = Alignment.TopEnd)
         .padding(top = dimensionResource(id = R.dimen._15sdp))
-        .padding(horizontal = dimensionResource(id = R.dimen._12sdp))
+        .padding(horizontal = dimensionResource(id = R.dimen._5sdp))
     )
 
     DropdownMenu(
       expanded = expanded,
       onDismissRequest = { expanded = false }
     ) {
-      schools.forEachIndexed { index, school ->
+      currencySymbol.forEachIndexed { index, currency ->
         DropdownMenuItem(
           text = {
             Text(
-              text = school.name,
+              text = currency.name,
               style = normalTextStyle()
             )
           },
           onClick = {
             selectedIndex = index
-            onSchoolChange.invoke(school)
+            onCurrencyChanged.invoke(currency)
             expanded = false
           })
 
-        if (index < schools.lastIndex) Divider()
+        if (index < currencySymbol.lastIndex) Divider()
       }
     }
 
   }
 }
-
-
-
-
 @Composable
 fun DropDownOutLineTextInput(
   value: String,
@@ -390,13 +311,11 @@ fun DropDownOutLineTextInput(
   keyboardType: KeyboardType = KeyboardType.Text,
   colors: TextFieldColors = textFieldColors(),
   imeAction: ImeAction = ImeAction.Default,
-  icon: Int = 0,
   isError: Boolean = false,
-  disableFontValue: Boolean = false,
   onClick: () -> Unit,
 ) {
 
-  OutLineTextInput(
+  OutlinedTextField(
     modifier = modifier.clickable { onClick.invoke() },
     shape = RoundedCornerShape(dimensionResource(id = R.dimen._6sdp)),
     singleLine = true,
@@ -417,8 +336,7 @@ fun DropDownOutLineTextInput(
       if (errorMessage.isNotEmpty()) {
         Text(
           text = errorMessage,
-          color = MaterialTheme.colorScheme.error,
-          fontFamily = ge_ss,
+          color = MaterialTheme.colorScheme.error
         )
       }
     },
@@ -427,16 +345,6 @@ fun DropDownOutLineTextInput(
       imeAction = imeAction
     ),
     colors = colors,
-
-    leadingIcon = {
-      if (icon != 0)
-        Icon(
-          painter = painterResource(id = icon),
-          tint = Color.Unspecified,
-          contentDescription = null,
-        )
-
-    },
-    textStyle = textFieldStyle(disableFontValue),
+    textStyle = textFieldStyle(),
   )
 }

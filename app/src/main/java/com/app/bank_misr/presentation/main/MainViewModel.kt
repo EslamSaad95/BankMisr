@@ -1,9 +1,12 @@
 package com.app.bank_misr.presentation.main
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.bank_misr.domain.entity.CurrencySymbolEntity
 import com.app.bank_misr.domain.userCase.CurrencyUseCase
 import com.app.bank_misr.presentation.common.DataState
+import com.app.bank_misr.presentation.common.UiText
 import com.app.bank_misr.presentation.common.toUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,6 +18,12 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase) : 
 
   private val _state = MutableStateFlow<DataState>(DataState.Idle)
   val state get() = _state
+
+  val fromCurrencyError = mutableStateOf<UiText>(UiText.Empty)
+  val toCurrencyError = mutableStateOf<UiText>(UiText.Empty)
+
+  val fromCurrency = mutableStateOf<CurrencySymbolEntity?>(null)
+  val toCurrency = mutableStateOf<CurrencySymbolEntity?>(null)
 
 
   init {
