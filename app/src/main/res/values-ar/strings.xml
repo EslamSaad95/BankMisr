@@ -23,15 +23,6 @@
   <string name="alert_ok">حسنآ</string>
   <!--endregion-->
 
-  <!--region login-->
-  <string name="user_name">اسم المستخدم</string>
-  <string name="password">كلمة السر</string>
-  <string name="login">تسجيل الدخول</string>
-  <!--endregion-->
 
-  <!--region Validations-->
-  <string name="validations_user_name_empty">يرجى إدخال اسم المستخدم</string>
-  <string name="validations_password_empty">يرجى إدخال كلمة المرور</string>
-  <!--endregion-->
 
 </resources>
