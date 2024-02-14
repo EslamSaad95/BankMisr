@@ -1,4 +1,4 @@
-package com.app.bank_misr.domain.common.common
+package com.app.bank_misr.domain.common
 
 import com.app.twerlo.presentation.common.UiText
 

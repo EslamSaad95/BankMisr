@@ -1,7 +1,7 @@
 package com.app.bank_misr.presentation.common
 
 import com.app.twerlo.R
-import com.app.bank_misr.domain.common.common.FailureType
+import com.app.bank_misr.domain.common.FailureType
 import com.app.twerlo.presentation.common.UiText
 
 fun FailureType.toUiText(): UiText
