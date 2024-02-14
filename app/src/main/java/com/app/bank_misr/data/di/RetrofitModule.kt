@@ -38,7 +38,6 @@ object RetrofitModule {
   @Singleton
   @Provides
   fun provideOkHttpClient(
-    prefStore: PrefStore,
     loggingInterceptor: HttpLoggingInterceptor
   ) = OkHttpClient.Builder()
     .connectTimeout(1, TimeUnit.MINUTES)
@@ -47,7 +46,6 @@ object RetrofitModule {
       val request = it.request().newBuilder()
         .header("Content-Type", "application/json")
         .header("Platform", "android")
-        .header("Authorization", if(prefStore.getUserToken().isNullOrEmpty())"" else "Bearer${prefStore.getUserToken()}}")
         .build()
       it.proceed(request)
     })
