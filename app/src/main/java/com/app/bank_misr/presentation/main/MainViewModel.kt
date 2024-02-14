@@ -1,5 +1,6 @@
 package com.app.bank_misr.presentation.main
 
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,6 +25,11 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase) : 
 
   val fromCurrency = mutableStateOf<CurrencySymbolEntity?>(null)
   val toCurrency = mutableStateOf<CurrencySymbolEntity?>(null)
+
+  val fromCurrencyAmount= mutableIntStateOf(1)
+  val fromCurrencyAmountError = mutableStateOf<UiText>(UiText.Empty)
+  val toCurrencyAmount= mutableStateOf<Int?>(null)
+  val toCurrencyAmountError = mutableStateOf<UiText>(UiText.Empty)
 
 
   init {

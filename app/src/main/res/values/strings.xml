@@ -26,5 +26,6 @@
 
   <string name="from_currency">From</string>
   <string name="to_currency">To</string>
+  <string name="amount">Amount</string>
 
 </resources>

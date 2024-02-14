@@ -25,5 +25,6 @@
 
   <string name="from_currency">من </string>
   <string name="to_currency">إلى </string>
+  <string name="amount">المبلغ</string>
 
 </resources>

@@ -104,69 +104,6 @@ fun OutLineTextInput(
 }
 
 @Composable
-fun OutlinePasswordTextField(
-  value: String,
-  @StringRes placeholder: Int,
-  errorMessage: String,
-  onValueChange: (String) -> Unit,
-  modifier: Modifier = Modifier,
-  passwordVisible: MutableState<Boolean>,
-  keyboardType: KeyboardType = KeyboardType.Text,
-  imeAction: ImeAction = ImeAction.Default,
-  enabled: Boolean = true,
-  colors: TextFieldColors = textFieldColors(),
-  isError: Boolean = false,
-) {
-  OutlinedTextField(
-    modifier = modifier.horizontalScroll(rememberScrollState()),
-    shape = RoundedCornerShape(dimensionResource(id = R.dimen._6sdp)),
-    singleLine = true,
-    value = value,
-    isError = isError,
-    enabled = enabled,
-    onValueChange = {
-      onValueChange.invoke(it)
-    },
-    placeholder = {
-      Text(
-        text = stringResource(id = placeholder),
-        style = placeholderStyle()
-      )
-    },
-    supportingText = {
-      if (errorMessage.isNotEmpty()) {
-        Text(
-          text = errorMessage,
-          color = MaterialTheme.colorScheme.error,
-        )
-      }
-    },
-    keyboardOptions = KeyboardOptions(
-      keyboardType = keyboardType,
-      imeAction = imeAction
-    ),
-    colors = colors,
-    textStyle = textFieldStyle(),
-    visualTransformation = if (passwordVisible.value) VisualTransformation.None
-    else PasswordVisualTransformation(),
-    trailingIcon = {
-      if (enabled) {
-        IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-          Icon(
-            painter = painterResource(
-              id = if (passwordVisible.value) com.app.bank_misr.R.drawable.ic_visibile else
-                com.app.bank_misr.R.drawable.ic_visibile_off
-            ),
-            tint = Color.Unspecified,
-            contentDescription = ""
-          )
-        }
-      }
-    }
-  )
-}
-
-@Composable
 fun InputTextField(
   value: String,
   @StringRes title: Int,

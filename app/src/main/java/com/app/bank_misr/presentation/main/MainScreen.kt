@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.bank_misr.R
 import com.app.bank_misr.data.util.cast
@@ -30,6 +33,7 @@ import com.app.bank_misr.presentation.common.UiText
 import com.app.bank_misr.presentation.common.view.CurrencySymbolsOutlineDropDown
 import com.app.bank_misr.presentation.common.view.ErrorView
 import com.app.bank_misr.presentation.common.view.LoadingDialog
+import com.app.bank_misr.presentation.common.view.OutLineTextInput
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -113,6 +117,43 @@ fun MainScreenContent(symbols: List<CurrencySymbolEntity>, viewModel: MainViewMo
       )
     }
 
+    Spacer(modifier = Modifier.height(dimensionResource(id = com.intuit.sdp.R.dimen._10sdp)))
 
+    Row(
+      modifier = Modifier
+        .padding(horizontal = dimensionResource(id = com.intuit.sdp.R.dimen._16sdp))
+        .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      OutLineTextInput(
+
+        keyboardType = KeyboardType.Number,
+        isError = viewModel.fromCurrencyAmountError.value != UiText.Empty,
+        value = viewModel.fromCurrencyAmount.value.toString(),
+        modifier = Modifier
+          .fillMaxWidth()
+          .width(dimensionResource(id = com.intuit.sdp.R.dimen._70sdp)),
+        placeholder = R.string.amount,
+        errorMessage = viewModel.fromCurrencyAmountError.value.asString(),
+        onValueChange = {
+          viewModel.fromCurrencyAmount.value = it.toInt()
+          viewModel.fromCurrencyError.value = UiText.Empty
+        }
+      )
+      OutLineTextInput(
+        keyboardType = KeyboardType.Text,
+        isError = viewModel.toCurrencyAmountError.value != UiText.Empty,
+        value = viewModel.toCurrencyAmount.value.toString(),
+        modifier = Modifier
+          .fillMaxWidth()
+          .width(dimensionResource(id = com.intuit.sdp.R.dimen._70sdp)),
+        placeholder = R.string.amount,
+        errorMessage = viewModel.toCurrencyError.value.asString(),
+        onValueChange = {
+          viewModel.toCurrencyAmount.value = it.toInt()
+          viewModel.toCurrencyError.value = UiText.Empty
+        }
+      )
+    }
   }
 }

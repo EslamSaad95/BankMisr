@@ -3,7 +3,7 @@ package com.app.bank_misr.data.network.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class CurrenciesDto(
+data class CurrenciesRatesDto(
     @SerializedName("base")
     val base: String,
     @SerializedName("date")
