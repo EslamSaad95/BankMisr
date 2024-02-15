@@ -11,5 +11,5 @@ interface ApiService {
   suspend fun getCurrenciesSymbol(): Response<CurrencySymbolDto>
 
   @GET("latest")
-  suspend fun getCurrenciesRates():Response<CurrenciesRatesDto>
+  suspend fun getCurrenciesRates(): Response<CurrenciesRatesDto>
 }

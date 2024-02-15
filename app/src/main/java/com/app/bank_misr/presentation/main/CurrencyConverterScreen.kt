@@ -53,9 +53,7 @@ fun CurrencyConverterScreen(
     }
 
     is DataState.Success<*> ->
-      if (viewModel.action == CurrencyConverterViewModel.Actions.CURRENCY_SYMBOLS)
-        data = state.cast<DataState.Success<List<CurrencySymbolEntity>>>().result
-
+      data = state.cast<DataState.Success<List<CurrencySymbolEntity>>>().result
 
     is DataState.Error -> {
       val error = state.cast<DataState.Error>().error.asString()
@@ -68,7 +66,7 @@ fun CurrencyConverterScreen(
     }
   }
 
-  data?.let { CurrencyConverterContent(it, viewModel) }
+  CurrencyConverterContent(emptyList(), viewModel)
 }
 
 @Composable
@@ -85,7 +83,7 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       verticalAlignment = Alignment.CenterVertically
     ) {
       CurrencySymbolsOutlineDropDown(
-        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._110sdp)),
+        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
         value = viewModel.fromCurrency.value?.symbol ?: "",
         placeholder = R.string.from_currency,
         errorMessage = viewModel.fromCurrencyError.value.asString(),
@@ -112,7 +110,7 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       )
 
       CurrencySymbolsOutlineDropDown(
-        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._110sdp)),
+        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
         value = viewModel.toCurrency.value?.symbol ?: "",
         placeholder = R.string.to_currency,
         errorMessage = viewModel.toCurrencyError.value.asString(),
@@ -138,11 +136,11 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       verticalAlignment = Alignment.CenterVertically
     ) {
       OutLineTextInput(
-        keyboardType = KeyboardType.Number,
+        keyboardType = KeyboardType.Phone,
         isError = viewModel.fromCurrencyAmountError.value != UiText.Empty,
         value = viewModel.fromCurrencyAmount.value,
         modifier = Modifier
-          .width(dimensionResource(id = com.intuit.sdp.R.dimen._70sdp)),
+          .width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
         placeholder = R.string.amount,
         errorMessage = viewModel.fromCurrencyAmountError.value.asString(),
         onValueChange = {
@@ -159,7 +157,7 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         isError = viewModel.toCurrencyAmountError.value != UiText.Empty,
         value = viewModel.toCurrencyAmount.value,
         modifier = Modifier
-          .width(dimensionResource(id = com.intuit.sdp.R.dimen._70sdp)),
+          .width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
         placeholder = R.string.amount,
         errorMessage = viewModel.toCurrencyError.value.asString(),
         onValueChange = {
