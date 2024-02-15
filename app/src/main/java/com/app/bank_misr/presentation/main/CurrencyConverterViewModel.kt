@@ -28,16 +28,14 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
 
   val fromCurrencyAmount = mutableStateOf("1")
   val fromCurrencyAmountError = mutableStateOf<UiText>(UiText.Empty)
-  val toCurrencyAmount = mutableStateOf<String>("")
+  val toCurrencyAmount = mutableStateOf("")
   val toCurrencyAmountError = mutableStateOf<UiText>(UiText.Empty)
 
   private val currencyRates = MutableStateFlow<List<CurrencyRatesEntity>?>(null)
 
   var action = Actions.CURRENCY_SYMBOLS
 
-  enum class Actions {
-    CURRENCY_RATES,
-    CURRENCY_SYMBOLS,
+  enum class Actions { CURRENCY_RATES, CURRENCY_SYMBOLS,
   }
 
   init {
@@ -48,9 +46,8 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
   fun convertCurrency(amount: String): String {
     var result = 0.0
     currencyRates.value?.let { rates ->
-      result = (amount.toInt() *
-          rates.filter { it.symbol == fromCurrency.value?.symbol }[0].rates) /
-          rates.filter { it.symbol == toCurrency.value?.symbol }[0].rates
+      result =
+        (amount.toInt() * rates.filter { it.symbol == fromCurrency.value?.symbol }[0].rates) / rates.filter { it.symbol == toCurrency.value?.symbol }[0].rates
     }
     return result.toString()
   }
@@ -65,8 +62,7 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
         }
 
         currenciesResponse.error?.let { errorState ->
-          if (errorState.message.isNullOrEmpty().not())
-            state.value = DataState.Error(errorState.toUiText())
+          if (errorState.message.isNullOrEmpty().not()) state.value = DataState.Error(errorState.toUiText())
           else if (errorState.failureType != null) {
             state.value = DataState.Error(errorState.failureType.toUiText())
           }
@@ -84,8 +80,7 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
           currencyRates.value = rates
         }
         currenciesResponse.error?.let { errorState ->
-          if (errorState.message.isNullOrEmpty().not())
-            state.value = DataState.Error(errorState.toUiText())
+          if (errorState.message.isNullOrEmpty().not()) state.value = DataState.Error(errorState.toUiText())
           else if (errorState.failureType != null) {
             state.value = DataState.Error(errorState.failureType.toUiText())
           }

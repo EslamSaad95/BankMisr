@@ -25,10 +25,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.bank_misr.R
-import com.app.bank_misr.data.util.cast
 import com.app.bank_misr.domain.entity.CurrencySymbolEntity
 import com.app.bank_misr.presentation.common.DataState
 import com.app.bank_misr.presentation.common.UiText
+import com.app.bank_misr.presentation.common.cast
 import com.app.bank_misr.presentation.common.view.CurrencySymbolsOutlineDropDown
 import com.app.bank_misr.presentation.common.view.ErrorView
 import com.app.bank_misr.presentation.common.view.LoadingDialog

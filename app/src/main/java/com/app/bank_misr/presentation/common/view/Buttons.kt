@@ -20,11 +20,6 @@ import com.intuit.sdp.R.dimen._10sdp
 import com.intuit.sdp.R.dimen._40sdp
 import com.intuit.ssp.R.dimen._14ssp
 
-/**
- * Ahmed Elmokadim
- * elmokadim@gmail.com
- * 02/08/2023
- */
 @Composable
 fun ButtonFilled(
   @StringRes text: Int,

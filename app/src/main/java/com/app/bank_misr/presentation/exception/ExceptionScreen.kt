@@ -21,8 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import com.app.bank_misr.data.util.findActivity
 import com.app.bank_misr.presentation.MainActivity
+import com.app.bank_misr.presentation.common.findActivity
 import com.app.bank_misr.presentation.common.view.ButtonFilled
 import com.app.bank_misr.presentation.theme.Black
 import com.intuit.sdp.R

@@ -1,6 +1,6 @@
 package com.app.bank_misr.presentation.common
 
-sealed class DataState() {
+sealed class DataState {
 
   data object Idle : DataState()
 

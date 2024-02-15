@@ -1,31 +1,21 @@
 package com.app.bank_misr.presentation.common.view
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -37,24 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.sp
 import com.app.bank_misr.domain.entity.CurrencySymbolEntity
-import com.app.bank_misr.presentation.theme.AntiFlashWhite
-import com.app.bank_misr.presentation.theme.Black
-import com.app.bank_misr.presentation.theme.Gray80
-import com.app.bank_misr.presentation.theme.Madder
 import com.intuit.sdp.R
-import com.intuit.sdp.R.dimen._2sdp
-import com.intuit.sdp.R.dimen._3sdp
-import com.intuit.ssp.R.dimen._11ssp
-import com.intuit.ssp.R.dimen._12ssp
-import com.intuit.ssp.R.dimen._8ssp
 
 @Composable
 fun OutLineTextInput(
@@ -82,8 +58,7 @@ fun OutLineTextInput(
     },
     placeholder = {
       Text(
-        text = stringResource(id = placeholder),
-        style = placeholderStyle()
+        text = stringResource(id = placeholder), style = placeholderStyle()
       )
     },
     supportingText = {
@@ -95,87 +70,12 @@ fun OutLineTextInput(
       }
     },
     keyboardOptions = KeyboardOptions(
-      keyboardType = keyboardType,
-      imeAction = imeAction
+      keyboardType = keyboardType, imeAction = imeAction
     ),
     colors = colors,
     textStyle = textFieldStyle(),
   )
 }
-
-@Composable
-fun InputTextField(
-  value: String,
-  @StringRes title: Int,
-  @StringRes placeholder: Int,
-  errorMessage: String,
-  onValueChange: (String) -> Unit,
-  modifier: Modifier = Modifier,
-  maxLength: Int = Int.MAX_VALUE,
-  keyboardType: KeyboardType = KeyboardType.Text,
-  imeAction: ImeAction = ImeAction.Default
-) {
-  BasicTextField(
-    modifier = modifier
-      .background(color = Color.White)
-      .padding(
-        vertical = dimensionResource(id = _3sdp),
-        horizontal = dimensionResource(id = com.intuit.sdp.R.dimen._6sdp)
-      )
-      .horizontalScroll(rememberScrollState()),
-    value = value,
-    onValueChange = {
-      if (it.length <= maxLength) onValueChange.invoke(it)
-    },
-    singleLine = true,
-    decorationBox = { innerTextField ->
-      Column {
-        Text(
-          text = stringResource(id = title),
-          style = TextStyle(
-            color = Gray80,
-            fontWeight = FontWeight.W400,
-            fontSize = dimensionResource(id = _11ssp).value.sp
-          )
-        )
-
-        Spacer(modifier = Modifier.height(dimensionResource(id = _2sdp)))
-
-        Box {
-          if (value.isEmpty()) Text(
-            text = stringResource(id = placeholder),
-            style = TextStyle(
-              color = AntiFlashWhite,
-              fontWeight = FontWeight.W400,
-              fontSize = dimensionResource(id = _11ssp).value.sp
-            )
-          )
-
-          innerTextField()
-        }
-
-        Text(
-          text = errorMessage,
-          style = TextStyle(
-            color = Madder,
-            fontWeight = FontWeight.Thin,
-            fontSize = dimensionResource(id = _8ssp).value.sp
-          )
-        )
-      }
-    },
-    textStyle = TextStyle(
-      color = Black,
-      fontWeight = FontWeight.W500,
-      fontSize = dimensionResource(id = _12ssp).value.sp
-    ),
-    keyboardOptions = KeyboardOptions(
-      keyboardType = keyboardType,
-      imeAction = imeAction
-    )
-  )
-}
-
 
 @Composable
 fun CurrencySymbolsOutlineDropDown(
@@ -196,10 +96,13 @@ fun CurrencySymbolsOutlineDropDown(
     modifier = Modifier.wrapContentSize()
   ) {
 
-    DropDownOutLineTextInput(modifier = modifier, value = value, placeholder = placeholder,
+    DropDownOutLineTextInput(modifier = modifier,
+      value = value,
+      placeholder = placeholder,
       errorMessage = errorMessage,
       isError = isError,
-      onValueChange = onValueChange, onClick = {
+      onValueChange = onValueChange,
+      onClick = {
         expanded = true
       })
 
@@ -213,23 +116,17 @@ fun CurrencySymbolsOutlineDropDown(
         .padding(horizontal = dimensionResource(id = R.dimen._5sdp))
     )
 
-    DropdownMenu(
-      expanded = expanded,
-      onDismissRequest = { expanded = false }
-    ) {
+    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
       currencySymbol.forEachIndexed { index, currency ->
-        DropdownMenuItem(
-          text = {
-            Text(
-              text = currency.name,
-              style = normalTextStyle()
-            )
-          },
-          onClick = {
-            selectedIndex = index
-            onCurrencyChanged.invoke(currency)
-            expanded = false
-          })
+        DropdownMenuItem(text = {
+          Text(
+            text = currency.name, style = normalTextStyle()
+          )
+        }, onClick = {
+          selectedIndex = index
+          onCurrencyChanged.invoke(currency)
+          expanded = false
+        })
 
         if (index < currencySymbol.lastIndex) Divider()
       }
@@ -237,6 +134,7 @@ fun CurrencySymbolsOutlineDropDown(
 
   }
 }
+
 @Composable
 fun DropDownOutLineTextInput(
   value: String,
@@ -265,21 +163,18 @@ fun DropDownOutLineTextInput(
     },
     placeholder = {
       Text(
-        text = stringResource(id = placeholder),
-        style = placeholderStyle()
+        text = stringResource(id = placeholder), style = placeholderStyle()
       )
     },
     supportingText = {
       if (errorMessage.isNotEmpty()) {
         Text(
-          text = errorMessage,
-          color = MaterialTheme.colorScheme.error
+          text = errorMessage, color = MaterialTheme.colorScheme.error
         )
       }
     },
     keyboardOptions = KeyboardOptions(
-      keyboardType = keyboardType,
-      imeAction = imeAction
+      keyboardType = keyboardType, imeAction = imeAction
     ),
     colors = colors,
     textStyle = textFieldStyle(),

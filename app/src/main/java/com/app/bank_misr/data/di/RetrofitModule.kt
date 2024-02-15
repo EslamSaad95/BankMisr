@@ -1,10 +1,10 @@
 package com.app.bank_misr.data.di
 
 import android.content.Context
+import com.app.bank_misr.BuildConfig
 import com.app.bank_misr.data.app.App
 import com.app.bank_misr.data.network.ApiService
-import com.app.bank_misr.data.util.cast
-import com.app.bank_misr.BuildConfig
+import com.app.bank_misr.presentation.common.cast
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
