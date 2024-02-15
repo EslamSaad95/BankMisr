@@ -58,7 +58,7 @@ class CurrencyRepositoryImpl @Inject constructor(private val apiService: ApiServ
         } ?: throw HttpException(response)
       }
     } catch (throwable: Throwable) {
-      ApiResult(error = ErrorState(failureType = throwable.mapToFailureType()))
+      ApiResult(error = ErrorState(message = throwable.message.toString()))
     }
   }
 }

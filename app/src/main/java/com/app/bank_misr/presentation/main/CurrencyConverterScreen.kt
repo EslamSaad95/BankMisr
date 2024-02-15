@@ -53,7 +53,7 @@ fun CurrencyConverterScreen(
     }
 
     is DataState.Success<*> ->
-
+      if (viewModel.action == CurrencyConverterViewModel.Actions.CURRENCY_SYMBOLS)
         data = state.cast<DataState.Success<List<CurrencySymbolEntity>>>().result
 
 
@@ -85,7 +85,7 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       verticalAlignment = Alignment.CenterVertically
     ) {
       CurrencySymbolsOutlineDropDown(
-        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
+        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._110sdp)),
         value = viewModel.fromCurrency.value?.symbol ?: "",
         placeholder = R.string.from_currency,
         errorMessage = viewModel.fromCurrencyError.value.asString(),
@@ -112,7 +112,7 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       )
 
       CurrencySymbolsOutlineDropDown(
-        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
+        modifier = Modifier.width(dimensionResource(id = com.intuit.sdp.R.dimen._110sdp)),
         value = viewModel.toCurrency.value?.symbol ?: "",
         placeholder = R.string.to_currency,
         errorMessage = viewModel.toCurrencyError.value.asString(),
