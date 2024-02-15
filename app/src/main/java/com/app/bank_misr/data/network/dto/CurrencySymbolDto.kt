@@ -7,7 +7,9 @@ data class CurrencySymbolDto(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("symbols")
-    val symbols: Symbols
+    val symbols: Symbols,
+    @SerializedName("error")
+    val errorDto: ErrorDto?
 ) {
     data class Symbols(
         @SerializedName("AED")

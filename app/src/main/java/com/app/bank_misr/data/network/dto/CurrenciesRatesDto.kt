@@ -13,7 +13,9 @@ data class CurrenciesRatesDto(
     @SerializedName("success")
     val success: Boolean,
     @SerializedName("timestamp")
-    val timestamp: Int
+    val timestamp: Int,
+    @SerializedName("error")
+    val errorDto: ErrorDto?
 ) {
     data class Rates(
         @SerializedName("AED")
