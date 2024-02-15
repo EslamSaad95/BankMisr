@@ -13,8 +13,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.app.bank_misr.presentation.destinations.ExceptionScreenDestination
-import com.app.bank_misr.presentation.destinations.MainScreenDestination
-import com.app.bank_misr.presentation.main.MainScreen
+import com.app.bank_misr.presentation.main.CurrencyConverterScreen
 import com.app.bank_misr.presentation.theme.AppTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.manualcomposablecalls.composable
@@ -57,13 +56,12 @@ class MainActivity : AppCompatActivity() {
     DestinationsNavHost(
       navGraph = NavGraphs.root,
       startRoute = when (message) {
-        null -> MainScreenDestination
+        null -> CurrencyConverterScreenDestination
         else -> ExceptionScreenDestination
       }
     ) {
-      composable(MainScreenDestination) {
-        MainScreen(
-          navigator = destinationsNavigator
+      composable(CurrencyConverterScreenDestination) {
+        CurrencyConverterScreen(
         )
       }
     }

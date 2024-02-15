@@ -1,9 +1,9 @@
 package com.app.bank_misr.presentation.main
 
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.bank_misr.domain.entity.CurrencyRatesEntity
 import com.app.bank_misr.domain.entity.CurrencySymbolEntity
 import com.app.bank_misr.domain.userCase.CurrencyUseCase
 import com.app.bank_misr.presentation.common.DataState
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase) : ViewModel() {
+class CurrencyConverterViewModel @Inject constructor(private val useCase: CurrencyUseCase) : ViewModel() {
 
   private val _state = MutableStateFlow<DataState>(DataState.Idle)
   val state get() = _state
@@ -26,14 +26,28 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase) : 
   val fromCurrency = mutableStateOf<CurrencySymbolEntity?>(null)
   val toCurrency = mutableStateOf<CurrencySymbolEntity?>(null)
 
-  val fromCurrencyAmount= mutableIntStateOf(1)
+  val fromCurrencyAmount = mutableStateOf("1")
   val fromCurrencyAmountError = mutableStateOf<UiText>(UiText.Empty)
-  val toCurrencyAmount= mutableStateOf<Int?>(null)
+  val toCurrencyAmount = mutableStateOf<String>("")
   val toCurrencyAmountError = mutableStateOf<UiText>(UiText.Empty)
 
+  private val currencyRates = MutableStateFlow<List<CurrencyRatesEntity>?>(null)
+
+  fun convertCurrency() {
+    if (fromCurrency.value != null && toCurrency.value != null && fromCurrencyAmount.value.isNotEmpty()
+    ) {
+      currencyRates.value?.let { rates ->
+        val result = (fromCurrencyAmount.value.toInt() *
+            rates.filter { it.symbol == fromCurrency.value?.symbol }[0].rates) /
+            rates.filter { it.symbol == toCurrency.value?.symbol }[0].rates
+        toCurrencyAmount.value = result.toString()
+      }
+    }
+  }
 
   init {
     getCurrenciesSymbol()
+    getCurrenciesRates()
   }
 
   fun getCurrenciesSymbol() {
@@ -42,6 +56,26 @@ class MainViewModel @Inject constructor(private val useCase: CurrencyUseCase) : 
       useCase.getCurrenciesSymbols().collect { currenciesResponse ->
         currenciesResponse.value?.let { currenciesSymbols ->
           _state.value = DataState.Success(currenciesSymbols)
+        }
+
+        currenciesResponse.error?.let { errorState ->
+          if (errorState.message.isNullOrEmpty().not())
+            state.value = DataState.Error(errorState.toUiText())
+          else if (errorState.failureType != null) {
+            state.value = DataState.Error(errorState.failureType.toUiText())
+          }
+        }
+
+      }
+    }
+  }
+
+  fun getCurrenciesRates() {
+    viewModelScope.launch {
+      useCase.getCurrenciesRates().collect { currenciesResponse ->
+        currenciesResponse.value?.let { rates ->
+
+          currencyRates.value = rates
         }
 
         currenciesResponse.error?.let { errorState ->

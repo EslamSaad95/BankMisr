@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.app.bank_misr.R
@@ -36,14 +35,12 @@ import com.app.bank_misr.presentation.common.view.LoadingDialog
 import com.app.bank_misr.presentation.common.view.OutLineTextInput
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @RootNavGraph(start = true)
 @Destination
 @Composable
-fun MainScreen(
-  viewModel: MainViewModel = hiltViewModel(),
-  navigator: DestinationsNavigator? = null,
+fun CurrencyConverterScreen(
+  viewModel: CurrencyConverterViewModel = hiltViewModel(),
 ) {
   val state by viewModel.state.collectAsState()
   var data by remember { mutableStateOf<List<CurrencySymbolEntity>?>(null) }
@@ -62,11 +59,11 @@ fun MainScreen(
     }
   }
 
-  data?.let { MainScreenContent(it, viewModel) }
+  data?.let { CurrencyConverterContent(it, viewModel) }
 }
 
 @Composable
-fun MainScreenContent(symbols: List<CurrencySymbolEntity>, viewModel: MainViewModel) {
+fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: CurrencyConverterViewModel) {
   Column(
     modifier = Modifier
       .fillMaxWidth()
@@ -113,6 +110,7 @@ fun MainScreenContent(symbols: List<CurrencySymbolEntity>, viewModel: MainViewMo
         currencySymbol = symbols,
         onCurrencyChanged = {
           viewModel.toCurrency.value = it
+          viewModel.convertCurrency()
         }
       )
     }
@@ -126,31 +124,28 @@ fun MainScreenContent(symbols: List<CurrencySymbolEntity>, viewModel: MainViewMo
       verticalAlignment = Alignment.CenterVertically
     ) {
       OutLineTextInput(
-
         keyboardType = KeyboardType.Number,
         isError = viewModel.fromCurrencyAmountError.value != UiText.Empty,
-        value = viewModel.fromCurrencyAmount.value.toString(),
+        value = viewModel.fromCurrencyAmount.value,
         modifier = Modifier
-          .fillMaxWidth()
           .width(dimensionResource(id = com.intuit.sdp.R.dimen._70sdp)),
         placeholder = R.string.amount,
         errorMessage = viewModel.fromCurrencyAmountError.value.asString(),
         onValueChange = {
-          viewModel.fromCurrencyAmount.value = it.toInt()
+          viewModel.fromCurrencyAmount.value = it
           viewModel.fromCurrencyError.value = UiText.Empty
         }
       )
       OutLineTextInput(
         keyboardType = KeyboardType.Text,
         isError = viewModel.toCurrencyAmountError.value != UiText.Empty,
-        value = viewModel.toCurrencyAmount.value.toString(),
+        value = viewModel.toCurrencyAmount.value,
         modifier = Modifier
-          .fillMaxWidth()
           .width(dimensionResource(id = com.intuit.sdp.R.dimen._70sdp)),
         placeholder = R.string.amount,
         errorMessage = viewModel.toCurrencyError.value.asString(),
         onValueChange = {
-          viewModel.toCurrencyAmount.value = it.toInt()
+          viewModel.toCurrencyAmount.value = it
           viewModel.toCurrencyError.value = UiText.Empty
         }
       )
