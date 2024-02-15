@@ -40,16 +40,14 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
     CURRENCY_SYMBOLS,
   }
 
-  fun convertCurrency() {
-    if (fromCurrency.value != null && toCurrency.value != null && fromCurrencyAmount.value.isNotEmpty()
-    ) {
-      currencyRates.value?.let { rates ->
-        val result = (fromCurrencyAmount.value.toInt() *
-            rates.filter { it.symbol == fromCurrency.value?.symbol }[0].rates) /
-            rates.filter { it.symbol == toCurrency.value?.symbol }[0].rates
-        toCurrencyAmount.value = result.toString()
-      }
+  fun convertCurrency(amount: String): String {
+    var result = 0.0
+    currencyRates.value?.let { rates ->
+      result = (amount.toInt() *
+          rates.filter { it.symbol == fromCurrency.value?.symbol }[0].rates) /
+          rates.filter { it.symbol == toCurrency.value?.symbol }[0].rates
     }
+    return result.toString()
   }
 
   init {

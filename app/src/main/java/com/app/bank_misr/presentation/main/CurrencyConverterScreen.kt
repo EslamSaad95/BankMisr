@@ -53,9 +53,9 @@ fun CurrencyConverterScreen(
     }
 
     is DataState.Success<*> ->
-      if (viewModel.action == CurrencyConverterViewModel.Actions.CURRENCY_SYMBOLS) {
+
         data = state.cast<DataState.Success<List<CurrencySymbolEntity>>>().result
-      }
+
 
     is DataState.Error -> {
       val error = state.cast<DataState.Error>().error.asString()
@@ -93,6 +93,9 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
           viewModel.fromCurrencyError.value = UiText.Empty
         }, currencySymbol = symbols, onCurrencyChanged = {
           viewModel.fromCurrency.value = it
+          if (viewModel.toCurrency.value != null && viewModel.toCurrencyAmount.value.isEmpty().not()) {
+            viewModel.fromCurrencyAmount.value = viewModel.convertCurrency(viewModel.toCurrencyAmount.value)
+          }
         }
       )
       Icon(
@@ -119,7 +122,9 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         currencySymbol = symbols,
         onCurrencyChanged = {
           viewModel.toCurrency.value = it
-          viewModel.convertCurrency()
+          if (viewModel.fromCurrency.value != null && viewModel.fromCurrencyAmount.value.isEmpty().not()) {
+            viewModel.toCurrencyAmount.value = viewModel.convertCurrency(viewModel.fromCurrencyAmount.value)
+          }
         }
       )
     }
@@ -143,6 +148,10 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         onValueChange = {
           viewModel.fromCurrencyAmount.value = it
           viewModel.fromCurrencyError.value = UiText.Empty
+          if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null) {
+            if (it.isNotEmpty())
+              viewModel.toCurrencyAmount.value = viewModel.convertCurrency(viewModel.fromCurrencyAmount.value)
+          }
         }
       )
       OutLineTextInput(
@@ -156,6 +165,10 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         onValueChange = {
           viewModel.toCurrencyAmount.value = it
           viewModel.toCurrencyError.value = UiText.Empty
+          if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null) {
+            if (it.isNotEmpty())
+              viewModel.fromCurrencyAmount.value = viewModel.convertCurrency(viewModel.toCurrencyAmount.value)
+          }
         }
       )
     }
