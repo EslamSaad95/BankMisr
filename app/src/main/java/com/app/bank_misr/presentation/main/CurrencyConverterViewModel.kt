@@ -33,6 +33,13 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
 
   private val currencyRates = MutableStateFlow<List<CurrencyRatesEntity>?>(null)
 
+  var action = Actions.CURRENCY_SYMBOLS
+
+  enum class Actions {
+    CURRENCY_RATES,
+    CURRENCY_SYMBOLS,
+  }
+
   fun convertCurrency() {
     if (fromCurrency.value != null && toCurrency.value != null && fromCurrencyAmount.value.isNotEmpty()
     ) {
@@ -51,6 +58,7 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
   }
 
   fun getCurrenciesSymbol() {
+    action = Actions.CURRENCY_SYMBOLS
     viewModelScope.launch {
       state.value = DataState.Loading(fullScreen = false)
       useCase.getCurrenciesSymbols().collect { currenciesResponse ->
@@ -71,13 +79,12 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
   }
 
   fun getCurrenciesRates() {
+    action = Actions.CURRENCY_RATES
     viewModelScope.launch {
       useCase.getCurrenciesRates().collect { currenciesResponse ->
         currenciesResponse.value?.let { rates ->
-
           currencyRates.value = rates
         }
-
         currenciesResponse.error?.let { errorState ->
           if (errorState.message.isNullOrEmpty().not())
             state.value = DataState.Error(errorState.toUiText())
@@ -85,7 +92,6 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
             state.value = DataState.Error(errorState.failureType.toUiText())
           }
         }
-
       }
     }
   }

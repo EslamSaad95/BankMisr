@@ -52,10 +52,19 @@ fun CurrencyConverterScreen(
       LoadingDialog()
     }
 
-    is DataState.Success<*> -> data = state.cast<DataState.Success<List<CurrencySymbolEntity>>>().result
+    is DataState.Success<*> ->
+      if (viewModel.action == CurrencyConverterViewModel.Actions.CURRENCY_SYMBOLS) {
+        data = state.cast<DataState.Success<List<CurrencySymbolEntity>>>().result
+      }
+
     is DataState.Error -> {
       val error = state.cast<DataState.Error>().error.asString()
-      ErrorView(message = error) { viewModel.getCurrenciesSymbol() }
+      ErrorView(message = error) {
+        if (viewModel.action == CurrencyConverterViewModel.Actions.CURRENCY_SYMBOLS)
+          viewModel.getCurrenciesSymbol()
+        else
+          viewModel.getCurrenciesRates()
+      }
     }
   }
 
