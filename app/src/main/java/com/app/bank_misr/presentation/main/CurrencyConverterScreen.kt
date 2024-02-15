@@ -106,6 +106,10 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
             val tmp = viewModel.fromCurrency
             viewModel.fromCurrency.value = viewModel.toCurrency.value
             viewModel.toCurrency.value = tmp.value
+            if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null && viewModel
+                .fromCurrencyAmount.value.isNotEmpty()
+            )
+              viewModel.toCurrencyAmount.value = viewModel.convertCurrency(viewModel.fromCurrencyAmount.value)
           }
       )
 
