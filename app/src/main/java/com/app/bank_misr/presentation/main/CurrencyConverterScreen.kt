@@ -141,8 +141,8 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       verticalAlignment = Alignment.CenterVertically
     ) {
       OutLineTextInput(
-        keyboardType = KeyboardType.NumberPassword
-            isError = viewModel . fromCurrencyAmountError . value != UiText . Empty,
+        keyboardType = KeyboardType.NumberPassword,
+        isError = viewModel.fromCurrencyAmountError.value != UiText.Empty,
         value = viewModel.fromCurrencyAmount.value,
         modifier = Modifier
           .width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
@@ -166,7 +166,6 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         placeholder = R.string.amount,
         errorMessage = viewModel.toCurrencyError.value.asString(),
         onValueChange = {
-          if (it.matches(numbersRegex)) {
             viewModel.toCurrencyAmount.value = it
             viewModel.toCurrencyError.value = UiText.Empty
             if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null) {
@@ -174,7 +173,6 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
                 viewModel.fromCurrencyAmount.value =
                   viewModel.convertCurrency(viewModel.toCurrencyAmount.value)
             }
-          }
         }
       )
     }
