@@ -40,6 +40,11 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
     CURRENCY_SYMBOLS,
   }
 
+  init {
+    getCurrenciesSymbol()
+    getCurrenciesRates()
+  }
+
   fun convertCurrency(amount: String): String {
     var result = 0.0
     currencyRates.value?.let { rates ->
@@ -48,11 +53,6 @@ class CurrencyConverterViewModel @Inject constructor(private val useCase: Curren
           rates.filter { it.symbol == toCurrency.value?.symbol }[0].rates
     }
     return result.toString()
-  }
-
-  init {
-    getCurrenciesSymbol()
-    getCurrenciesRates()
   }
 
   fun getCurrenciesSymbol() {

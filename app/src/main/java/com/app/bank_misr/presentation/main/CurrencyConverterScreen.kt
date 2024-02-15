@@ -66,7 +66,7 @@ fun CurrencyConverterScreen(
     }
   }
 
-  CurrencyConverterContent(emptyList(), viewModel)
+  data?.let { CurrencyConverterContent(it, viewModel) }
 }
 
 @Composable
@@ -104,9 +104,10 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         modifier = Modifier
           .size(dimensionResource(id = com.intuit.sdp.R.dimen._40sdp))
           .clickable {
-            val tmp = viewModel.fromCurrency
-            viewModel.fromCurrency.value = viewModel.toCurrency.value
-            viewModel.toCurrency.value = tmp.value
+            val tmp1 = viewModel.fromCurrency.value
+            val tmp2 = viewModel.toCurrency.value
+            viewModel.fromCurrency.value = tmp2
+            viewModel.toCurrency.value = tmp1
             if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null && viewModel
                 .fromCurrencyAmount.value.isNotEmpty()
             )
@@ -136,7 +137,6 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
 
     Row(
       modifier = Modifier
-        .padding(horizontal = dimensionResource(id = com.intuit.sdp.R.dimen._16sdp))
         .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically
     ) {
