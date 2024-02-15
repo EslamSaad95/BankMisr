@@ -71,6 +71,7 @@ fun CurrencyConverterScreen(
 
 @Composable
 fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: CurrencyConverterViewModel) {
+
   Column(
     modifier = Modifier
       .fillMaxWidth()
@@ -140,8 +141,8 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
       verticalAlignment = Alignment.CenterVertically
     ) {
       OutLineTextInput(
-        keyboardType = KeyboardType.Phone,
-        isError = viewModel.fromCurrencyAmountError.value != UiText.Empty,
+        keyboardType = KeyboardType.NumberPassword
+            isError = viewModel . fromCurrencyAmountError . value != UiText . Empty,
         value = viewModel.fromCurrencyAmount.value,
         modifier = Modifier
           .width(dimensionResource(id = com.intuit.sdp.R.dimen._100sdp)),
@@ -157,7 +158,7 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         }
       )
       OutLineTextInput(
-        keyboardType = KeyboardType.Text,
+        keyboardType = KeyboardType.NumberPassword,
         isError = viewModel.toCurrencyAmountError.value != UiText.Empty,
         value = viewModel.toCurrencyAmount.value,
         modifier = Modifier
@@ -165,11 +166,14 @@ fun CurrencyConverterContent(symbols: List<CurrencySymbolEntity>, viewModel: Cur
         placeholder = R.string.amount,
         errorMessage = viewModel.toCurrencyError.value.asString(),
         onValueChange = {
-          viewModel.toCurrencyAmount.value = it
-          viewModel.toCurrencyError.value = UiText.Empty
-          if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null) {
-            if (it.isNotEmpty())
-              viewModel.fromCurrencyAmount.value = viewModel.convertCurrency(viewModel.toCurrencyAmount.value)
+          if (it.matches(numbersRegex)) {
+            viewModel.toCurrencyAmount.value = it
+            viewModel.toCurrencyError.value = UiText.Empty
+            if (viewModel.fromCurrency.value != null && viewModel.toCurrency.value != null) {
+              if (it.isNotEmpty())
+                viewModel.fromCurrencyAmount.value =
+                  viewModel.convertCurrency(viewModel.toCurrencyAmount.value)
+            }
           }
         }
       )
